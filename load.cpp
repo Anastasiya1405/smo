@@ -14,7 +14,13 @@
 
 int load(int numSources, int numBufer, int numHandler, int numApplication, double lambda, double alpha, double beta)
 {
-    std::cout << numSources << '\n' << numBufer << '\n' << numHandler << '\n' << numApplication << '\n' <<lambda << '\n' << alpha << '\n';
+    std::cout << "numSources = " << numSources << '\n'
+              << "numBufer = " << numBufer << '\n'
+              << "numHandler = " << numHandler << '\n'
+              << "numApplication = "<< numApplication << '\n'
+              << "lambda = " <<lambda << '\n'
+              << "alpha = "<< alpha << '\n'
+              << "beta = "<< beta << '\n';
     std::srand(unsigned(std::time(nullptr)));
 
       std::shared_ptr<TimeBehaviour> exponentialTimeGenerator = std::make_shared<ExponentialTimeBehavior>();
@@ -32,24 +38,13 @@ int load(int numSources, int numBufer, int numHandler, int numApplication, doubl
           sources.push_back(std::make_shared<Source>(intensity, puassonTime));
       }
 
-      intensity = 8;
+      //intensity = 8;
       std::vector<std::shared_ptr<Handler>> handlers;
       for (int i = 0; i < numHandler; i++)
       {
           handlers.push_back(std::make_shared<Handler>(0, infiniteUniformTimeGenerator));
       };
 
-      /*std::vector<std::shared_ptr<Source>> sources = {
-          std::make_shared<Source>(intensity, puassonTime),
-          std::make_shared<Source>(intensity, puassonTime)
-      };
-
-      std::vector<std::shared_ptr<Handler>> handlers = {
-          std::make_shared<Handler>(0, infiniteUniformTimeGenerator),
-          std::make_shared<Handler>(0, infiniteUniformTimeGenerator),
-          std::make_shared<Handler>(0, infiniteUniformTimeGenerator),
-          std::make_shared<Handler>(0, infiniteUniformTimeGenerator)
-      };*/
       const size_t bufferSize = numBufer;
       std::shared_ptr<SelectionStrategy> selectionStrategy = std::make_shared<RingSelection>();
       std::shared_ptr<AdditionStrategy> additionStrategy = std::make_shared<RingAdd>();
@@ -67,7 +62,9 @@ int load(int numSources, int numBufer, int numHandler, int numApplication, doubl
         std::cout << "\t averageTimeInSystem = " << functionalModule.data_.getAverageTimeInSystem(i) << '\n';
         std::cout << "\t averageHandlingTime = " << functionalModule.data_.getAverageHandlingTime(i) << '\n';
         std::cout << "\t averageBufferingTime = " << functionalModule.data_.getAverageBufferingTime(i) << '\n';
-
+        std::cout << "\t dispersion = " <<
+                     functionalModule.data_.getAverageBufferingTime(i) / functionalModule.data_.getAverageTimeInSystem(i)
+                  << '\n';
         std::cout << '\n';
       }
 
@@ -75,6 +72,5 @@ int load(int numSources, int numBufer, int numHandler, int numApplication, doubl
         std::cout << "Stats for " << i + 1 << " handler:\n";
         std::cout << "\t getEmploymentRate = " << functionalModule.data_.getEmploymentRate(i) << '\n';
       }
-
       return 0;
 }

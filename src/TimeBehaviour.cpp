@@ -17,7 +17,7 @@ double PuassonTime::generateTime(const double &intensity)
       throw std::invalid_argument("Intensity should be > 0");
     }
     const double randomValue = ((double) std::rand() / (RAND_MAX));
-    std:: cout  << "P  " <<  ((-1.0/ intensity) * std::log(randomValue)) << '\n';
+    //std:: cout  << "P  " <<  ((-1.0/ intensity) * std::log(randomValue)) << '\n';
     return ((-1.0/ intensity) * std::log(randomValue));
 }
 double InfiniteUniformTimeBehavior::generateTime(const double &intensity) {
@@ -25,7 +25,7 @@ double InfiniteUniformTimeBehavior::generateTime(const double &intensity) {
     throw std::invalid_argument("Intensity should be > 0");
   }
   double randomValue = ((double) std::rand() / (RAND_MAX));
-  std:: cout  <<  a_ + randomValue * (b_ - a_) << '\n';
+ // std:: cout  <<  a_ + randomValue * (b_ - a_) << '\n';
   return a_ + randomValue * (b_ - a_);
 }
 

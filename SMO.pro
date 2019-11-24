@@ -18,7 +18,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     ../Desktop/Polytech/SMO/src/Application.cpp \
     ../Desktop/Polytech/SMO/src/Buffer.cpp \
-    ../Desktop/Polytech/SMO/src/FreeAddition.cpp \
     ../Desktop/Polytech/SMO/src/FunctionalModule.cpp \
     ../Desktop/Polytech/SMO/src/Handler.cpp \
     ../Desktop/Polytech/SMO/src/RingAdd.cpp \
@@ -33,7 +32,6 @@ HEADERS += \
     ../Desktop/Polytech/SMO/headers/AdditionStrategy.hpp \
     ../Desktop/Polytech/SMO/headers/Application.hpp \
     ../Desktop/Polytech/SMO/headers/Buffer.hpp \
-    ../Desktop/Polytech/SMO/headers/FreeAddition.hpp \
     ../Desktop/Polytech/SMO/headers/FunctionalModule.hpp \
     ../Desktop/Polytech/SMO/headers/Handler.hpp \
     ../Desktop/Polytech/SMO/headers/RingSelection.hpp \
