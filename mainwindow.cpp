@@ -31,11 +31,12 @@ void MainWindow::on_modelling_clicked()
    int numBufer = ui->numBufer->toPlainText().toInt();
     int numHandler = ui->numHandler->toPlainText().toInt();
     double lambda = ui->lambda->toPlainText().toDouble();
-    const double alpha = ui->alpha->toPlainText().toDouble();
-   const double beta = ui->beta->toPlainText().toDouble();
+    double alpha = ui->alpha->toPlainText().toDouble();
+   double beta = ui->beta->toPlainText().toDouble();
      //std::cout << lambda << '\n' << alpha << '\n';
 
    int a = load(numSources, numBufer, numHandler, numApplication, lambda, alpha, beta);
+   this->close();
     //sint a = load();
 
 }
