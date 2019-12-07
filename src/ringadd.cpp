@@ -1,4 +1,5 @@
 #include "RingAdd.h"
+#include <iostream>
 
 RingAdd::RingAdd():
   elementPointer_(0)
@@ -16,11 +17,15 @@ bool RingAdd::addApplication(std::vector<std::shared_ptr<Application>> &applicat
 
 void RingAdd::movePointer(const size_t &bufferSize, const size_t &pointerPosition)
 {
+   // std::cout<< "Шаг :" << FunctionalModule::count << '\n';
+    //count++;
+  std::cout << "Приход в Буфер №" << pointerPosition + 1;
   if (pointerPosition == bufferSize) {
     elementPointer_ = 0;
   } else {
     elementPointer_ = pointerPosition + 1;
   }
+
 }
 
 bool RingAdd::search(std::vector<std::shared_ptr<Application>> &applications,const  std::shared_ptr<Application> &applicationToAdd,
@@ -32,6 +37,8 @@ bool RingAdd::search(std::vector<std::shared_ptr<Application>> &applications,con
         if (application == nullptr) {
           application = applicationToAdd;
           movePointer(applications.size(), i);
+          std::cout << " От Источника №" << applicationToAdd->getSourceIndex() + 1 << " = " << applicationToAdd->getTimeOfCreation() << '\n';
+          std::cout << '\n';
           return true;
         }
       }

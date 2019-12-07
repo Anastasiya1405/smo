@@ -1,5 +1,9 @@
 
 #include "../headers/FunctionalModule.hpp"
+#include <iostream>
+//#include <windows.h>
+
+static int count = 1;
 
 void FunctionalModule::cleanUp() {
   data_.cleanUp();
@@ -17,7 +21,9 @@ void FunctionalModule::cleanUp() {
 void FunctionalModule::postFirstApplications() {
   for (size_t i = 0; i < sources_.size(); ++i) {
     sources_[i]->postApplication();
-    data_.sourcesData[i].generatedAppsCount ++;
+    //data_.sourcesData[i].generatedAppsCount++;
+    //data_.sourcesData[i].acceptedAppsCount++;
+    //std::cout << "Источник №" << i + 1<< " = " << sources_[i]->getPostTime() << '\n';
   }
 }
 
@@ -68,48 +74,187 @@ std::pair<bool, int> FunctionalModule::getEarliestEvent() {
 void FunctionalModule::handleCreationOfNewApplication(const size_t &sourceGeneratedApplication) {
   auto application = std::make_shared<Application>(sourceGeneratedApplication, sources_[sourceGeneratedApplication]->getPostTime());
 
+  std::cout<< "Шаг :" << count << '\n';
+  count++;
+
+  std::cout << "Источник №" << application->getSourceIndex() + 1 << " = " << sources_[application->getSourceIndex()]->getPostTime() << '\n';
+  std::cout<< '\n';
+
   // Добавляем заявку в буфер, если есть место
+  std::cout<< "Шаг :" << count << '\n';
+  count++;
   const bool hasAdded = buffer_->addApplication(application);
+
   if (!hasAdded) {
     // Не добавили заявку в буфер -> заменяем заявку
+    //std::cout<< "Шаг :" << count << '\n';
+    //count++;
     std::shared_ptr<Application> replacedApplication = buffer_->replaceApplication(application);
+
     data_.sourcesData[replacedApplication->getSourceIndex()].refusedAppsCount++;
-    // TODO учитываем статистику для выброшенной зявки
+    //data_.sourcesData[application->getSourceIndex()].acceptedAppsCount++;
+   //data_.sourcesData[sourceGeneratedApplication].acceptedAppsCount--;
+
+    //std::cout<< "Шаг :" << count << '\n';
+    //count++;
+
+    std::cout << "Отказ: " << "Источник №" << replacedApplication->getSourceIndex() + 1 << " = " << data_.timeNow << '\n';
+    std::cout << '\n';
+    // TODO учитываем статистику для выброшенной заявки
   }
+  else {
+      //data_.sourcesData[sourceGeneratedApplication].acceptedAppsCount++;
+  }
+  //std::cout << "Source " << sourceGeneratedApplication + 1 << " = " << sources_[sourceGeneratedApplication]->getPostTime() << '\n';
   sources_[sourceGeneratedApplication]->postApplication();
   data_.sourcesData[sourceGeneratedApplication].generatedAppsCount ++;
+  //data_.sourcesData[sourceGeneratedApplication].acceptedAppsCount++;
   // TODO Учет статистики (среднее число apps в буфере)
 }
 
-void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork) {
+void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork, int apps, int numApplication, outputFinish *outputTime) {
   std::shared_ptr<Application> application;
   if (!buffer_->isEmpty()) {
     // TODO Для учета статистики (время работы в приборе)
+
+    std::cout<< "Шаг :" << count << '\n';
+    count++;
     application = buffer_->removeApplication();
     const int nextHandlerIndex = getNextHandler(handlers_[handlerFinishedWork]->getFinishTime());
+
+    if (outputTime[nextHandlerIndex].finishTime != 0)
+    {
+        std::cout<< "Шаг :" << count << '\n';
+        count++;
+        std::cout << "Прибор обработал №" << nextHandlerIndex + 1 << " Заявку от Источника №"
+              << outputTime[nextHandlerIndex].numSource + 1 << " = "
+              << outputTime[nextHandlerIndex].finishTime<< '\n';
+         std::cout << '\n';
+         outputTime[nextHandlerIndex].finishTime = 0;
+
+    }
+
+    if (handlers_[nextHandlerIndex]->getFinishTime()!= 0)
+    {
+        std::cout<< "Шаг :" << count << '\n';
+        count++;
+
+        std::cout << "Работает Прибор №" << nextHandlerIndex + 1 << " Заявка от Источника №"
+              << application->getSourceIndex() + 1 << " = "
+              << handlers_[nextHandlerIndex]->getFinishTime()<< '\n';
+         std::cout << '\n';
+    }
+    else
+    {
+        std::cout<< "Шаг :" << count << '\n';
+        count++;
+        std::cout << "Работает Прибор №" << nextHandlerIndex + 1 << " Заявка от Источника №"
+              << application->getSourceIndex() + 1 << " = "
+              << sources_[application->getSourceIndex()]->getPostTime()<< '\n';
+         std::cout << '\n';
+    }
     const double timeInHandler = handlers_[nextHandlerIndex]->handleApplication(handlers_[handlerFinishedWork]->getFinishTime());
+
 
     data_.sourcesData[application->getSourceIndex()].handlingTime += timeInHandler;
     data_.sourcesData[application->getSourceIndex()].bufferingTime += (handlers_[handlerFinishedWork]->getFinishTime() - application->getTimeOfCreation());
     data_.handlersData[nextHandlerIndex].workingTime += timeInHandler;
+
+    //if (handlers_[handlerFinishedWork]->isWorking(data_.timeNow))
+   // {
+   /* std::cout << "Работает Прибор №" << nextHandlerIndex + 1 << " Заявка от Источника №"
+              << application->getSourceIndex() + 1 << " = "
+              << handlers_[nextHandlerIndex]->getFinishTime()<< '\n';*/
+   // }
+
+    //if (!handlers_[handlerFinishedWork]->isWorking(data_.timeNow))
+    //{
+   /* std::cout<< "Шаг :" << count << '\n';
+    count++;
+
+        std::cout << "Прибор обработал №" << nextHandlerIndex + 1 << " Заявку от Источника №"
+              << application->getSourceIndex() + 1 << " = "
+              << handlers_[nextHandlerIndex]->getFinishTime()<< '\n';
+         std::cout << '\n';*/
+    outputTime[nextHandlerIndex].finishTime = handlers_[nextHandlerIndex]->getFinishTime();
+    outputTime[nextHandlerIndex].numSource = application->getSourceIndex() ;
+   // }
 
   } else {
     // TODO Для учета статистики (время работы в приборе)
     const int earliestSourceIndex = getEarliestSourceIndex();
     application = std::make_shared<Application>(earliestSourceIndex, sources_[earliestSourceIndex]->getPostTime());
 
+    std::cout<< "Шаг :" << count << '\n';
+    count++;
+
+    std::cout << "Источник №" << application->getSourceIndex() + 1 << " = " << sources_[application->getSourceIndex()]->getPostTime() << '\n';
+     std::cout << '\n';
+
+    std::cout<< "Шаг :" << count << '\n';
+    count++;
     buffer_->addApplication(application);
+    //std::cout << '\n';
+
+    std::cout<< "Шаг :" << count << '\n';
+    count++;
     application = buffer_->removeApplication();
+    //std::cout << '\n';
 
     const int nextHandlerIndex = getNextHandler(application->getTimeOfCreation());
+    if (outputTime[nextHandlerIndex].finishTime != 0)
+    {
+        std::cout<< "Шаг :" << count << '\n';
+        count++;
+        std::cout << "Прибор обработал №" << nextHandlerIndex + 1 << " Заявку от Источника №"
+              << outputTime[nextHandlerIndex].numSource + 1 << " = "
+              << outputTime[nextHandlerIndex].finishTime<< '\n';
+         std::cout << '\n';
+         outputTime[nextHandlerIndex].finishTime = 0;
+
+    }
+
+    if (handlers_[nextHandlerIndex]->getFinishTime()!= 0)
+    {
+        std::cout<< "Шаг :" << count << '\n';
+        count++;
+
+        std::cout << "Работает Прибор №" << nextHandlerIndex + 1 << " Заявка от Источника №"
+              << application->getSourceIndex() + 1 << " = "
+              << handlers_[nextHandlerIndex]->getFinishTime()<< '\n';
+         std::cout << '\n';
+    }
+    else
+    {
+        std::cout<< "Шаг :" << count << '\n';
+        count++;
+
+        std::cout << "Работает Прибор №" << nextHandlerIndex + 1 << " Заявка от Источника №"
+              << application->getSourceIndex() + 1 << " = "
+              << sources_[application->getSourceIndex()]->getPostTime()<< '\n';
+         std::cout << '\n';
+    }
+
     const double timeInHandler = handlers_[nextHandlerIndex]->handleApplication(application->getTimeOfCreation());
 
     data_.sourcesData[application->getSourceIndex()].bufferingTime += 0;
     data_.sourcesData[application->getSourceIndex()].handlingTime += timeInHandler;
     data_.handlersData[nextHandlerIndex].workingTime += timeInHandler;
 
+
+    /*std::cout<< "Шаг :" << count << '\n';
+    count++;
+
+        std::cout << "Прибор обработал №" << nextHandlerIndex + 1 << " Заявку от Источника №"
+              << application->getSourceIndex() + 1 << " = "
+              << handlers_[nextHandlerIndex]->getFinishTime()<< '\n';
+         std::cout << '\n';*/
+    outputTime[nextHandlerIndex].finishTime = handlers_[nextHandlerIndex]->getFinishTime();
+    outputTime[nextHandlerIndex].numSource = application->getSourceIndex();
+
     sources_[earliestSourceIndex]->postApplication();
     data_.sourcesData[earliestSourceIndex].generatedAppsCount++;
+
   }
 
   data_.sourcesData[application->getSourceIndex()].acceptedAppsCount++;
@@ -165,41 +310,66 @@ FunctionalModule::FunctionalModule(std::vector<std::shared_ptr<Source>> sources,
   cleanUp();
 }
 
-void FunctionalModule::simulate(const size_t &steps) {
+/*void FunctionalModule::simulate(int numSources, int numBufer, int numHandlerconst, const size_t &steps) {
   cleanUp();
   postFirstApplications();
   for (int i = 0; i < steps; ++i) {
-    simulationStep();
+    simulationStep(numSources, numBufer, numHandlerconst);
   }
-}
+}*/
 
-void FunctionalModule::simulationStep() {
+void FunctionalModule::simulationStep(int h, size_t countt, size_t numApplication, outputFinish *outputTime) {
+    //int count;
   std::pair<bool, int> earliestEvent = getEarliestEvent();
-
+  //std::cout << '\n';
+// std::cout<< "Шаг :" << count << '\n';
   if (earliestEvent.first) {
     data_.timeNow = sources_[earliestEvent.second]->getPostTime();
     handleCreationOfNewApplication(earliestEvent.second);
 
   } else {
     data_.timeNow = handlers_[earliestEvent.second]->getFinishTime();
-    handleEndOfHandlerWork(earliestEvent.second);
+    handleEndOfHandlerWork(earliestEvent.second, count, numApplication, outputTime);
 
   }
+
+    //std::cout << '\n';
 }
 
-void FunctionalModule::totalGeneratedAppsSimulation(const size_t &totalApps) {
+void FunctionalModule::totalGeneratedAppsSimulation(int numSources, int numBufer, int numHandler, const size_t &totalApps) {
   cleanUp();
   postFirstApplications();
 
+  outputFinish outputTime[numHandler];
+  for (int i = 0; i < numHandler; i++)
+  {
+      //outputTime.add(new outputFinish() {numHand=i});
+      outputTime[i].numHand = i;
+      outputTime[i].finishTime = 0;
+  }
   while (true) {
-    simulationStep();
 
-    size_t apps = 0;
+      size_t apps = 0;
+    simulationStep(count, totalApps, apps, outputTime);
+    //count++;
+    /*for (size_t i = 0; i < sources_.size(); ++i) {
+      std::cout << "Stats for " << i+ 1 << " source:\n";
+      std::cout << "\t generatedAppsCount = " << data_.sourcesData[i].generatedAppsCount << '\n';
+      std::cout << "\t refusedAppsCount = " << data_.sourcesData[i].refusedAppsCount << '\n';
+      std::cout << "\t acceptedAppsCount = " << data_.sourcesData[i].acceptedAppsCount << '\n';
+ }*/
+    //size_t apps = 0;
     for (size_t i = 0; i < sources_.size(); ++i) {
       apps += data_.sourcesData[i].generatedAppsCount;
+
     }
 
+
     if (apps >= totalApps) {
+        //while (!buffer_->isEmpty())
+        //{
+
+        //}
       break;
     }
   }

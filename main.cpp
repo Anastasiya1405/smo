@@ -8,12 +8,14 @@
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/FunctionalModule.hpp"
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/RingSelection.hpp"
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/FreeAddition.hpp"
+
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Source.hpp"
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Handler.hpp"
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Buffer.hpp"
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/FunctionalModule.hpp"
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/RingSelection.hpp"
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/FreeAddition.hpp"
+
 
 #include <QApplication>
 int load();
@@ -25,6 +27,4 @@ int main(int argc, char *argv[])
     w.show();
 
     return a.exec();
-      //return 0;
-    //return load();
 }

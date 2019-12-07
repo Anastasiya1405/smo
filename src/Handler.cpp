@@ -40,6 +40,7 @@ double Handler::handleApplication(const double &arrivalTime)
   }
   const double workingTime = timeBehaviour_->generateTime(intensity_);
   finishTime_ = arrivalTime + workingTime;
+
   return workingTime;
 }
 

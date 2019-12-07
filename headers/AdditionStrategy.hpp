@@ -13,6 +13,8 @@ public:
                              // const std::shared_ptr<Application> &applicationToAdd) = 0;
     virtual bool addApplication(std::vector<std::shared_ptr<Application>>
                                 &applications, const std::shared_ptr<Application> &applicationToAdd) = 0;
+public:
+    //size_t elementPointer_;
 };
 
 #endif //SMO_ADDITIONSTRATEGY_HPP

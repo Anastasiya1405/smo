@@ -9,6 +9,7 @@
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/RingSelection.hpp"
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/FreeAddition.hpp"
 #include "/Users/anastasiia/Desktop/Polytech/SMO/src/RingAdd.h"
+
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Source.hpp"
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Handler.hpp"
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Buffer.hpp"
@@ -19,7 +20,7 @@
 
 #include <QApplication>
 
-int load(int numSources, int numBufer, int numHandler, int numApplication, double lambda, double alpha, double beta)
+int load(int numSources, int numBufer, int numHandler, size_t numApplication, double lambda, double alpha, double beta)
 {
     std::cout << "numSources = " << numSources << '\n'
               << "numBufer = " << numBufer << '\n'
@@ -28,6 +29,7 @@ int load(int numSources, int numBufer, int numHandler, int numApplication, doubl
               << "lambda = " <<lambda << '\n'
               << "alpha = "<< alpha << '\n'
               << "beta = "<< beta << '\n';
+    std::cout << '\n';
     std::srand(unsigned(std::time(nullptr)));
 
       std::shared_ptr<TimeBehaviour> exponentialTimeGenerator = std::make_shared<ExponentialTimeBehavior>();
@@ -59,12 +61,14 @@ int load(int numSources, int numBufer, int numHandler, int numApplication, doubl
 
       FunctionalModule functionalModule(sources, buffer, handlers);
       //functionalModule.simulate(999999);
-      functionalModule.totalGeneratedAppsSimulation(numApplication);
+      functionalModule.totalGeneratedAppsSimulation(numSources, numBufer, numHandler, numApplication);
       for (size_t i = 0; i < sources.size(); ++i) {
         std::cout << "Stats for " << i+ 1 << " source:\n";
         std::cout << "\t generatedAppsCount = " << functionalModule.data_.sourcesData[i].generatedAppsCount << '\n';
         std::cout << "\t refusedAppsCount = " << functionalModule.data_.sourcesData[i].refusedAppsCount << '\n';
-        std::cout << "\t acceptedAppsCount = " << functionalModule.data_.sourcesData[i].acceptedAppsCount << '\n';
+        //std::cout << "\t acceptedAppsCount = " << functionalModule.data_.sourcesData[i].acceptedAppsCount << '\n';
+        std::cout << "\t acceptedAppsCount = " << functionalModule.data_.sourcesData[i].generatedAppsCount -
+                     functionalModule.data_.sourcesData[i].refusedAppsCount  << '\n';
         std::cout << "\t getProbabilityOfFailure = " << functionalModule.data_.getProbabilityOfFailure(i) << '\n';
         std::cout << "\t averageTimeInSystem = " << functionalModule.data_.getAverageTimeInSystem(i) << '\n';
         std::cout << "\t averageHandlingTime = " << functionalModule.data_.getAverageHandlingTime(i) << '\n';
