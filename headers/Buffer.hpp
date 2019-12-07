@@ -24,7 +24,7 @@ public:
 
   std::shared_ptr<Application> replaceApplication(const std::shared_ptr<Application> &applicationToInsert);
 
-public:
+private:
   std::shared_ptr<SelectionStrategy> selectionStrategy_;
   std::shared_ptr<AdditionStrategy> additionStrategy_;
   std::vector<std::shared_ptr<Application>> applications_;

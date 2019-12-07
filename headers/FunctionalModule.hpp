@@ -4,7 +4,6 @@
 
 #include <memory>
 #include <iostream>
-#include <list>
 
 #include "Handler.hpp"
 #include "Buffer.hpp"
@@ -33,18 +32,6 @@ struct sourceData {
 
   double bufferingTime;
   double handlingTime;
-};
-
- struct outputFinish {
-    /*outputFinish(int &i):
-        numHand(i),
-        numSource(-1),
-        finishTime(0)
-    {}*/
-
-   int numSource;
-  int numHand;
-   double finishTime;
 };
 
 struct handlerData {
@@ -113,9 +100,9 @@ public:
                    std::shared_ptr<Buffer> buffer,
                    std::vector<std::shared_ptr<Handler>> handlers);
 
-  void totalGeneratedAppsSimulation(int numSources, int numBufer, int numHandlerconstconst,const size_t &totalApps);
-  void simulate(int numSources, int numBufer, int numHandlerconstconst, size_t &steps);
-  void simulationStep(int h, size_t count, size_t numApplication, outputFinish *outputTime);
+  void totalGeneratedAppsSimulation(const size_t &totalApps);
+  void simulate(const size_t &steps);
+  void simulationStep();
   void cleanUp();
 
   simulationData data_;
@@ -125,8 +112,6 @@ private:
   std::vector<std::shared_ptr<Source>> sources_;
   std::shared_ptr<Buffer> buffer_;
   size_t handlerPointer_;
-  //std::vector<outputFinish> outputTime; //Для хрнения времени финиша приборов и вывода в пошаговом режиме
-  //std::list<outputFinish> outputTime = new std::list<outputFinish>();
 
   int getNextHandler(const double &timeNow);
 
@@ -137,7 +122,7 @@ private:
   std::pair<bool, int> getEarliestEvent();
 
   void handleCreationOfNewApplication(const size_t &sourceGeneratedApplication);
-  void handleEndOfHandlerWork(const size_t &handlerFinishedWork, int apps, int numApplication, outputFinish *outputTime) ;
+  void handleEndOfHandlerWork(const size_t &handlerFinishedWork);
 };
 
 

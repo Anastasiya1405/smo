@@ -11,7 +11,7 @@ public:
   std::shared_ptr<Application> removeApplication(std::vector<std::shared_ptr<Application>> &applications);
 
 private:
-  size_t elPointer_;
+  size_t elementPointer_;
 
   std::shared_ptr<Application> search(std::vector<std::shared_ptr<Application>> &applications,
                                       const size_t &fromIndex, const size_t &toIndex);

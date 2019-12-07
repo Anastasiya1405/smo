@@ -1,17 +1,16 @@
 
 #include "../headers/RingSelection.hpp"
-#include <iostream>
 
 RingSelection::RingSelection():
-  elPointer_(0)
+  elementPointer_(0)
 {}
 
 std::shared_ptr<Application>
 RingSelection::removeApplication(std::vector<std::shared_ptr<Application>> &applications)
 {
-  std::shared_ptr<Application> fromPointerToEnd = RingSelection::search(applications, elPointer_, applications.size());
+  std::shared_ptr<Application> fromPointerToEnd = RingSelection::search(applications, elementPointer_, applications.size());
   if (fromPointerToEnd == nullptr) {
-    return RingSelection::search(applications, 0, elPointer_);
+    return RingSelection::search(applications, 0, elementPointer_);
   } else {
     return fromPointerToEnd;
   }
@@ -19,13 +18,10 @@ RingSelection::removeApplication(std::vector<std::shared_ptr<Application>> &appl
 
 void RingSelection::movePointer(const size_t &bufferSize, const size_t &pointerPosition)
 {
-    //std::cout<< "Шаг :" << FunctionalModule::count << '\n';
-    //count++;
-  std::cout << "Уход из Буфера №" << elPointer_ + 1;
   if (pointerPosition == bufferSize) {
-    elPointer_ = 0;
+    elementPointer_ = 0;
   } else {
-    elPointer_ = pointerPosition + 1;
+    elementPointer_ = pointerPosition + 1;
   }
 }
 
@@ -37,8 +33,6 @@ std::shared_ptr<Application> RingSelection::search(std::vector<std::shared_ptr<A
       const std::shared_ptr<Application> applicationToRemove = applications[i];
       applications[i] = nullptr;
       movePointer(applications.size(), i);
-      std::cout << " От Источника №" << applicationToRemove->getSourceIndex() + 1 << " = " << applicationToRemove->getTimeOfCreation() << '\n';
-      std::cout << '\n';
       return applicationToRemove;
     }
   }
