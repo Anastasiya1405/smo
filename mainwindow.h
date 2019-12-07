@@ -18,6 +18,8 @@ public:
 private slots:
     void on_modelling_clicked();
 
+    void on_modelling_2_clicked();
+
 private:
     Ui::MainWindow *ui;
 };

@@ -81,15 +81,22 @@ std::shared_ptr<Application> Buffer::replaceApplication(const std::shared_ptr<Ap
     throw std::logic_error("Buffer is not full, use addAplication() instead replaceApplication()");
   }
 
-  double lastApplicationTime = -1;
-  size_t lastApplicationIndex = 0;
-  for (size_t i = 0; i < applications_.size(); ++i) {
+  //double lastApplicationTime = -1;
+  //size_t lastApplicationIndex = 0;
+  /*for (size_t i = 0; i < applications_.size(); ++i) {
     if (applications_[i]->getTimeOfCreation() > lastApplicationTime) {
       lastApplicationTime = applications_[i]->getTimeOfCreation();
       lastApplicationIndex = i;
     }
-  }
-
+  }*/
+  double lastApplicationTime = applications_[applications_.size() - 1]->getTimeOfCreation();
+  size_t lastApplicationIndex = applications_.size() - 1;
+  for (size_t i = applications_.size() - 1; i > applications_.size()-1-bufferSize_+freeSlots_; --i) {
+      if (applications_[i]->getTimeOfCreation() < lastApplicationTime) {
+        lastApplicationTime = applications_[i]->getTimeOfCreation();
+        lastApplicationIndex = i;
+      }
+   }
   std::shared_ptr<Application> applicationToReturn = applications_[lastApplicationIndex];
   applications_[lastApplicationIndex] = applicationToInsert;
 
