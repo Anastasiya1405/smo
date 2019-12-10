@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "stepwindow.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,13 +15,37 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    int getNumSources();
+    int getNumApplication();
+    int getNumBufer();
+    int getNumHandler();
+    double getLambda();
+    double getAlpha();
+    double getBeta();
+
+    int numSources_;
+    int numApplication_;
+    int numBufer_;
+    int numHandler_;
+    double lambda_;
+    double alpha_;
+    double beta_;
 
 private slots:
     void on_modelling_clicked();
+    void on_StepByStep_clicked();
 
-    void on_modelling_2_clicked();
-
-private:
+//private:
+public:
     Ui::MainWindow *ui;
+    StepWindow *stepWindow;
+
+//    int numSources_;
+//    int numApplication_;
+//    int numBufer_;
+//    int numHandler_;
+//    double lambda_;
+//    double alpha_;
+//    double beta_;
 };
 #endif // MAINWINDOW_H

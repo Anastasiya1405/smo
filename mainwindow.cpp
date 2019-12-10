@@ -16,22 +16,67 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+int MainWindow::getNumSources()
+{
+  return numSources_;
+};
+
+int MainWindow::getNumApplication()
+{
+  return numApplication_;
+};
+
+int MainWindow::getNumBufer()
+{
+    return numBufer_;
+};
+
+int MainWindow::getNumHandler()
+{
+    return numHandler_;
+};
+
+double MainWindow::getLambda()
+{
+    return lambda_;
+};
+
+double MainWindow::getAlpha()
+{
+    return alpha_;
+};
+
+double MainWindow::getBeta()
+{
+    return beta_;
+};
 
 void MainWindow::on_modelling_clicked()
 {
-    int numSources =ui->numSource->toPlainText().toInt();
-    size_t numApplication = ui->numAp->toPlainText().toInt();
-   int numBufer = ui->numBufer->toPlainText().toInt();
-    int numHandler = ui->numHandler->toPlainText().toInt();
-    double lambda = ui->lambda->toPlainText().toDouble();
-    double alpha = ui->alpha->toPlainText().toDouble();
-   double beta = ui->beta->toPlainText().toDouble();
-
-   int a = load(numSources, numBufer, numHandler, numApplication, lambda, alpha, beta);
+   numSources_ =ui->numSource->toPlainText().toInt();
+   numApplication_ = ui->numAp->toPlainText().toInt();
+   numBufer_ = ui->numBufer->toPlainText().toInt();
+   numHandler_ = ui->numHandler->toPlainText().toInt();
+   lambda_ = ui->lambda->toPlainText().toDouble();
+   alpha_ = ui->alpha->toPlainText().toDouble();
+   beta_ = ui->beta->toPlainText().toDouble();
+//   std::cout<< getNumSources();
+   int a = load(numSources_, numBufer_, numHandler_, numApplication_, lambda_, alpha_, beta_);
    this->close();
 }
 
-void MainWindow::on_modelling_2_clicked()
+void MainWindow::on_StepByStep_clicked()
 {
+    numSources_ =ui->numSource->toPlainText().toInt();
+    numApplication_ = ui->numAp->toPlainText().toInt();
+    numBufer_ = ui->numBufer->toPlainText().toInt();
+    numHandler_ = ui->numHandler->toPlainText().toInt();
+    lambda_ = ui->lambda->toPlainText().toDouble();
+    alpha_ = ui->alpha->toPlainText().toDouble();
+    beta_ = ui->beta->toPlainText().toDouble();
+    if (this->stepWindow != nullptr)
+          delete stepWindow;
+        this->stepWindow = new StepWindow(this);
+        stepWindow->show();
 
 }
