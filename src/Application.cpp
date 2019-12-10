@@ -16,6 +16,11 @@ size_t Application::getSourceIndex() const noexcept
   return sourceNumber_;
 }
 
+size_t Application::getBufferIndex() const noexcept
+{
+  return bufferNumber_;
+}
+
 double Application::getTimeOfCreation() const noexcept
 {
   return timeOfCreation_;
