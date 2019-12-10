@@ -7,9 +7,11 @@ class RingAdd: public AdditionStrategy {
 public:
   explicit RingAdd();
   bool addApplication(std::vector<std::shared_ptr<Application>> &applications, const std::shared_ptr<Application> &applicationToAdd);
+  size_t elementPointer_;
+  size_t getPointer(size_t p) override;
 
 public:
-  size_t elementPointer_;
+  //size_t elementPointer_;
 
   bool search(std::vector<std::shared_ptr<Application>> &applications, const std::shared_ptr<Application> &applicationToAdd,
                                       const size_t &fromIndex, const size_t &toIndex);

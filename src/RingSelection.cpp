@@ -1,6 +1,8 @@
 
 #include "../headers/RingSelection.hpp"
 #include <iostream>
+#include "../headers/FunctionalModule.hpp"
+#include "step.hpp"
 
 RingSelection::RingSelection():
   elPointer_(0)
@@ -37,7 +39,13 @@ std::shared_ptr<Application> RingSelection::search(std::vector<std::shared_ptr<A
       const std::shared_ptr<Application> applicationToRemove = applications[i];
       applications[i] = nullptr;
       movePointer(applications.size(), i);
-      std::cout << " От Источника №" << applicationToRemove->getSourceIndex() + 1 << " = " << applicationToRemove->getTimeOfCreation() << '\n';
+      StepList.push_back(* (new StepStructure(1, applicationToRemove->bufferNumber_,
+                                              applicationToRemove->getTimeOfCreation(),
+                                              count,
+                                              applicationToRemove->getSourceIndex(),
+                                              -1)) );
+     std::cout << " От Источника №" << applicationToRemove->getSourceIndex() + 1 << " = " << applicationToRemove->getTimeOfCreation() << '\n';
+     // std::cout << " От Источника №" << applicationToRemove->getSourceIndex() + 1 << " = " << data_.timeNow << '\n';
       std::cout << '\n';
       return applicationToRemove;
     }

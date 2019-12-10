@@ -9,6 +9,7 @@
 #include "Handler.hpp"
 #include "Buffer.hpp"
 #include "Source.hpp"
+static int count = 1;
 
 struct sourceData {
   sourceData():
@@ -36,14 +37,9 @@ struct sourceData {
 };
 
  struct outputFinish {
-    /*outputFinish(int &i):
-        numHand(i),
-        numSource(-1),
-        finishTime(0)
-    {}*/
 
-   int numSource;
-  int numHand;
+   size_t numSource;
+   size_t numHand;
    double finishTime;
 };
 
@@ -104,7 +100,7 @@ struct simulationData {
 
   std::vector<sourceData> sourcesData;
   std::vector<handlerData> handlersData;
-  double timeNow;
+   double timeNow;
 };
 
 class FunctionalModule {
@@ -121,12 +117,12 @@ public:
   simulationData data_;
   std::vector<std::shared_ptr<Handler>> handlers_;
 
+
 private:
   std::vector<std::shared_ptr<Source>> sources_;
   std::shared_ptr<Buffer> buffer_;
   size_t handlerPointer_;
-  //std::vector<outputFinish> outputTime; //Для хрнения времени финиша приборов и вывода в пошаговом режиме
-  //std::list<outputFinish> outputTime = new std::list<outputFinish>();
+  std::vector<outputFinish> outputTime;
 
   int getNextHandler(const double &timeNow);
 

@@ -1,9 +1,18 @@
 #include "RingAdd.h"
 #include <iostream>
+#include "step.hpp"
+#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/FunctionalModule.hpp"
+
+//#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/FunctionalModule.hpp"
 
 RingAdd::RingAdd():
   elementPointer_(0)
 {}
+
+size_t RingAdd::getPointer(size_t p)
+{
+    elementPointer_ = p;
+}
 
 bool RingAdd::addApplication(std::vector<std::shared_ptr<Application>> &applications, const std::shared_ptr<Application> &applicationToAdd)
 {
@@ -36,7 +45,13 @@ bool RingAdd::search(std::vector<std::shared_ptr<Application>> &applications,con
       for (auto &application : applications) {
         if (application == nullptr) {
           application = applicationToAdd;
+          application->bufferNumber_ = elementPointer_;
           movePointer(applications.size(), i);
+          StepList.push_back(* (new StepStructure(1, application->bufferNumber_,
+                                                  applicationToAdd->getTimeOfCreation(),
+                                                  count,
+                                                  application->getSourceIndex(),
+                                                  -1)) );
           std::cout << " От Источника №" << applicationToAdd->getSourceIndex() + 1 << " = " << applicationToAdd->getTimeOfCreation() << '\n';
           std::cout << '\n';
           return true;

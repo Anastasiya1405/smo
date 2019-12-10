@@ -1,6 +1,7 @@
 
 
 #include "../headers/Buffer.hpp"
+#include <iostream>
 
 Buffer::Buffer(const std::shared_ptr<SelectionStrategy> &selectionStrategy,
                const std::shared_ptr<AdditionStrategy> &additionStrategy,
@@ -75,7 +76,7 @@ size_t Buffer::getApplicationQuantity(const size_t &sourceIndex) const
   return applicationQuantity;
 }
 
-std::shared_ptr<Application> Buffer::replaceApplication(const std::shared_ptr<Application> &applicationToInsert)
+std::pair<std::shared_ptr<Application>, size_t> Buffer::replaceApplication(const std::shared_ptr<Application> &applicationToInsert)
 {
   if (! isFull()) {
     throw std::logic_error("Buffer is not full, use addAplication() instead replaceApplication()");
@@ -91,14 +92,29 @@ std::shared_ptr<Application> Buffer::replaceApplication(const std::shared_ptr<Ap
   }*/
   double lastApplicationTime = applications_[applications_.size() - 1]->getTimeOfCreation();
   size_t lastApplicationIndex = applications_.size() - 1;
-  for (size_t i = applications_.size() - 1; i > applications_.size()-1-bufferSize_+freeSlots_; --i) {
+  /*std::cout << "lastApplicationTime" << applications_[applications_.size() - 1]->getTimeOfCreation() << '\n';
+  std::cout << '\n';
+  for (size_t i = 0; i < applications_.size();++i) {
+      std::cout << "i = " << i << " time = " <<applications_[i]->getTimeOfCreation() << '\n';
+  }*/
+  /*for (size_t i = applications_.size() - 1; i > -1; --i) {
       if (applications_[i]->getTimeOfCreation() < lastApplicationTime) {
         lastApplicationTime = applications_[i]->getTimeOfCreation();
         lastApplicationIndex = i;
       }
-   }
+  }*/
+
+  for (size_t i = 0; i < applications_.size() - 1; ++i) {
+      if (applications_[i]->getTimeOfCreation() < lastApplicationTime) {
+        lastApplicationTime = applications_[i]->getTimeOfCreation();
+        lastApplicationIndex = i;
+      }
+  }
+
+  /*std::cout << "lastApplicationTime" << lastApplicationTime<< '\n';*/
+  std::cout << '\n';
   std::shared_ptr<Application> applicationToReturn = applications_[lastApplicationIndex];
   applications_[lastApplicationIndex] = applicationToInsert;
 
-  return applicationToReturn;
+  return {applicationToReturn, applicationToReturn->bufferNumber_} ;
 }

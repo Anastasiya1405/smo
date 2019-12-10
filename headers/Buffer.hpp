@@ -22,7 +22,8 @@ public:
   bool isFull() const;
   void cleanUp();
 
-  std::shared_ptr<Application> replaceApplication(const std::shared_ptr<Application> &applicationToInsert);
+  //std::shared_ptr<Application> replaceApplication(const std::shared_ptr<Application> &applicationToInsert);
+  std::pair<std::shared_ptr<Application>, size_t> replaceApplication(const std::shared_ptr<Application> &applicationToInsert);
 
 public:
   std::shared_ptr<SelectionStrategy> selectionStrategy_;
