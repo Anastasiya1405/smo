@@ -41,6 +41,9 @@ private:
      double numSources_;
      double numBufer_;
      double numDevice_;
+     double numApplications_;
+
+     double parametr = 0.25;
 
      QGraphicsScene *scene;
  };
