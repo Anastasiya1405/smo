@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 #include <iostream>
 #include <vector>
-#include <list>
-#include "step.hpp"
 
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/Source.hpp"
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/Handler.hpp"
@@ -85,14 +83,5 @@ int load(int numSources, int numBufer, int numHandler, size_t numApplication, do
         std::cout << "Stats for " << i + 1 << " handler:\n";
         std::cout << "\t getEmploymentRate = " << functionalModule.data_.getEmploymentRate(i) << '\n';
       }
-      std::cout <<"555 "<< StepList.begin()->time_ << '\n';
-      std::cout <<"555 "<< StepList.begin()->numSource_ << '\n';
-      std::cout <<"555 "<< StepList.end()->time_ << '\n';
-      std::cout <<"555 "<< StepList.end()->numSource_ << '\n';
-      std::list <StepStructure> :: iterator it;
-      //int i = 0;
-      for (it = StepList.begin(); it != StepList.end(); it++) {
-          std::cout <<"huynya "<< it->time_ << '\n';
-       }
       return 0;
 }

@@ -26,9 +26,7 @@ SOURCES += \
     ../Desktop/Polytech/SMO/src/TimeBehaviour.cpp \
     load.cpp \
     main.cpp \
-    mainwindow.cpp \
-    stepwindow.cpp \
-
+    mainwindow.cpp
 
 HEADERS += \
     ../Desktop/Polytech/SMO/headers/AdditionStrategy.hpp \
@@ -41,15 +39,11 @@ HEADERS += \
     ../Desktop/Polytech/SMO/headers/Source.hpp \
     ../Desktop/Polytech/SMO/headers/TimeBehaviour.hpp \
     ../Desktop/Polytech/SMO/src/RingAdd.h \
-    mainwindow.h \
-    stepwindow.h \
-    step.hpp \
-
+    mainwindow.h
 
 FORMS += \
     mainwindow.ui \
-    stepwindow.ui \
-
+    step.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
