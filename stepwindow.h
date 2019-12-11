@@ -6,7 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <QGraphicsTextItem>
-//#include "mainwindow.h"
+#include "step.hpp"
 
 
 namespace Ui {
@@ -30,7 +30,7 @@ private slots:
 
 private:
   Ui::StepWindow *ui;
-     int currentStep;
+     int currentStep = 1;
      float leftTime;
      float rightTime;
 
@@ -38,11 +38,14 @@ private:
      int scaleX = 50*5;
      int dashHeight = 25;
      int numSources_;
+     int numApplication_;
      int numBufer_;
-     int numDevice_;
-     int numApplications_;
+     int numHandler_;
+     double lambda_;
+     double alpha_;
+     double beta_;
 
-     double parametr = 0.25;
+     double parametr = 0.0;
 
      QGraphicsScene *scene;
  };
