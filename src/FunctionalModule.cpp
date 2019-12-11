@@ -2,11 +2,13 @@
 #include "../headers/FunctionalModule.hpp"
 #include <iostream>
 //#include <windows.h>
-#include "../headers/RingAdd.h"
+#include "../headers/ringadd.h"
 #include "step.hpp"
 #include "stepwindow.h"
 
 //static int count = 1;
+std::list<StepStructure> StepLis;
+std::list<StepStructure> *StepList=&StepLis;
 
 void FunctionalModule::cleanUp() {
   data_.cleanUp();
@@ -83,15 +85,15 @@ void FunctionalModule::handleCreationOfNewApplication(const size_t &sourceGenera
   std::cout << "Источник №" << application->getSourceIndex() + 1 << " = " << sources_[application->getSourceIndex()]->getPostTime() << '\n';
   std::cout<< '\n';
 
-  StepList.push_back(* (new StepStructure(0, application->getSourceIndex(),
+  StepList->push_back( *(new StepStructure(0, application->getSourceIndex(),
                                           sources_[application->getSourceIndex()]->getPostTime(),
                                           count,
                                           application->getSourceIndex(),
                                           data_.sourcesData[application->getSourceIndex()].generatedAppsCount)) );
-  std::cout <<"beg "<< StepList.front().time_ << '\n';
-  std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
-  std::cout <<"end "<< StepList.back().time_ << '\n';
-  std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
+  std::cout <<"beg "<< StepList->front().time_ << '\n';
+  std::cout <<"beg "<< StepList->front().numSource_ +1<< '\n';
+  std::cout <<"end "<< StepList->back().time_ << '\n';
+  std::cout <<"end "<< StepList->back().numSource_+1 << '\n';
   // Добавляем заявку в буфер, если есть место
   std::cout<< "Шаг :" << count << '\n';
   count++;
@@ -111,15 +113,15 @@ void FunctionalModule::handleCreationOfNewApplication(const size_t &sourceGenera
 
     //std::cout << "Отказ: " << "Источник №" << replacedApplication->getSourceIndex() + 1 << " = " << data_.timeNow << '\n';
     std::cout << "Отказ: " << "Источник №" << replacedApplication->getSourceIndex() + 1 << " = " << data_.timeNow << '\n';
-    StepList.push_back(* (new StepStructure(3, 0,
+    StepList->push_back(* (new StepStructure(3, 0,
                                             data_.timeNow,
                                             count,
                                             replacedApplication->getSourceIndex(),
                                             -1)) );
-    std::cout <<"beg "<< StepList.front().time_ << '\n';
-    std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
-    std::cout <<"end "<< StepList.back().time_ << '\n';
-    std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
+    std::cout <<"beg "<< StepList->front().time_ << '\n';
+    std::cout <<"beg "<< StepList->front().numSource_ +1<< '\n';
+    std::cout <<"end "<< StepList->back().time_ << '\n';
+    std::cout <<"end "<< StepList->back().numSource_+1 << '\n';
     std::cout << '\n';
   }
   sources_[sourceGeneratedApplication]->postApplication();
@@ -139,7 +141,7 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
     {
         std::cout<< "Шаг :" << count << '\n';
         count++;
-        StepList.push_back(* (new StepStructure(2, nextHandlerIndex,
+        StepList->push_back(* (new StepStructure(2, nextHandlerIndex,
                                                 outputTime[nextHandlerIndex].finishTime,
                                                 count,
                                                 outputTime[nextHandlerIndex].numSource,
@@ -148,10 +150,10 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
               << outputTime[nextHandlerIndex].numSource + 1 << " = "
               << outputTime[nextHandlerIndex].finishTime<< '\n';
          std::cout << '\n';
-         std::cout <<"beg "<< StepList.front().time_ << '\n';
-         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
-         std::cout <<"end "<< StepList.back().time_ << '\n';
-         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
+         std::cout <<"beg "<< StepList->front().time_ << '\n';
+         std::cout <<"beg "<< StepList->front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList->back().time_ << '\n';
+         std::cout <<"end "<< StepList->back().numSource_+1 << '\n';
          outputTime[nextHandlerIndex].finishTime = 0;
 
     }
@@ -165,15 +167,15 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
               << application->getSourceIndex() + 1 << " = "
               << handlers_[nextHandlerIndex]->getFinishTime()<< '\n';
          std::cout << '\n';
-         StepList.push_back(* (new StepStructure(2, nextHandlerIndex,
+         StepList->push_back(* (new StepStructure(2, nextHandlerIndex,
                                                  handlers_[nextHandlerIndex]->getFinishTime(),
                                                  count,
                                                  application->getSourceIndex(),
                                                  -1)) );
-         std::cout <<"beg "<< StepList.front().time_ << '\n';
-         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
-         std::cout <<"end "<< StepList.back().time_ << '\n';
-         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
+         std::cout <<"beg "<< StepList->front().time_ << '\n';
+         std::cout <<"beg "<< StepList->front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList->back().time_ << '\n';
+         std::cout <<"end "<< StepList->back().numSource_+1 << '\n';
     }
     else
     {
@@ -183,15 +185,15 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
               << application->getSourceIndex() + 1 << " = "
               << sources_[application->getSourceIndex()]->getPostTime()<< '\n';
          std::cout << '\n';
-         StepList.push_back(* (new StepStructure(2, nextHandlerIndex,
+         StepList->push_back(* (new StepStructure(2, nextHandlerIndex,
                                                  sources_[application->getSourceIndex()]->getPostTime(),
                                                  count,
                                                  application->getSourceIndex(),
                                                  -1)) );
-         std::cout <<"beg "<< StepList.front().time_ << '\n';
-         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
-         std::cout <<"end "<< StepList.back().time_ << '\n';
-         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
+         std::cout <<"beg "<< StepList->front().time_ << '\n';
+         std::cout <<"beg "<< StepList->front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList->back().time_ << '\n';
+         std::cout <<"end "<< StepList->back().numSource_+1 << '\n';
     }
     const double timeInHandler = handlers_[nextHandlerIndex]->handleApplication(handlers_[handlerFinishedWork]->getFinishTime());
 
@@ -213,15 +215,15 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
 
     std::cout << "Источник №" << application->getSourceIndex() + 1 << " = " << sources_[application->getSourceIndex()]->getPostTime() << '\n';
      std::cout << '\n';
-     StepList.push_back(* (new StepStructure(0, application->getSourceIndex(),
+     StepList->push_back(* (new StepStructure(0, application->getSourceIndex(),
                                              sources_[application->getSourceIndex()]->getPostTime(),
                                              count,
                                              application->getSourceIndex(),
                                              data_.sourcesData[application->getSourceIndex()].generatedAppsCount)) );
-     std::cout <<"beg "<< StepList.front().time_ << '\n';
-     std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
-     std::cout <<"end "<< StepList.back().time_ << '\n';
-     std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
+     std::cout <<"beg "<< StepList->front().time_ << '\n';
+     std::cout <<"beg "<< StepList->front().numSource_ +1<< '\n';
+     std::cout <<"end "<< StepList->back().time_ << '\n';
+     std::cout <<"end "<< StepList->back().numSource_+1 << '\n';
 
     std::cout<< "Шаг :" << count << '\n';
     count++;
@@ -240,15 +242,15 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
               << outputTime[nextHandlerIndex].numSource + 1 << " = "
               << outputTime[nextHandlerIndex].finishTime<< '\n';
          std::cout << '\n';
-         StepList.push_back(* (new StepStructure(2, nextHandlerIndex,
+         StepList->push_back(* (new StepStructure(2, nextHandlerIndex,
                                                  outputTime[nextHandlerIndex].finishTime,
                                                  count,
                                                  outputTime[nextHandlerIndex].numSource,
                                                  -1)) );
-         std::cout <<"beg "<< StepList.front().time_ << '\n';
-         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
-         std::cout <<"end "<< StepList.back().time_ << '\n';
-         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
+         std::cout <<"beg "<< StepList->front().time_ << '\n';
+         std::cout <<"beg "<< StepList->front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList->back().time_ << '\n';
+         std::cout <<"end "<< StepList->back().numSource_+1 << '\n';
          outputTime[nextHandlerIndex].finishTime = 0;
 
 
@@ -263,15 +265,15 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
               << application->getSourceIndex() + 1 << " = "
               << handlers_[nextHandlerIndex]->getFinishTime()<< '\n';
          std::cout << '\n';
-         StepList.push_back(* (new StepStructure(2, nextHandlerIndex,
+         StepList->push_back(* (new StepStructure(2, nextHandlerIndex,
                                                  handlers_[nextHandlerIndex]->getFinishTime(),
                                                  count,
                                                  application->getSourceIndex(),
                                                  -1)) );
-         std::cout <<"beg "<< StepList.front().time_ << '\n';
-         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
-         std::cout <<"end "<< StepList.back().time_ << '\n';
-         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
+         std::cout <<"beg "<< StepList->front().time_ << '\n';
+         std::cout <<"beg "<< StepList->front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList->back().time_ << '\n';
+         std::cout <<"end "<< StepList->back().numSource_+1 << '\n';
     }
     else
     {
@@ -282,15 +284,15 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
               << application->getSourceIndex() + 1 << " = "
               << sources_[application->getSourceIndex()]->getPostTime()<< '\n';
          std::cout << '\n';
-         StepList.push_back(* (new StepStructure(2, nextHandlerIndex,
+         StepList->push_back(* (new StepStructure(2, nextHandlerIndex,
                                                  sources_[application->getSourceIndex()]->getPostTime(),
                                                  count,
                                                  application->getSourceIndex(),
                                                  -1)) );
-         std::cout <<"beg "<< StepList.front().time_ << '\n';
-         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
-         std::cout <<"end "<< StepList.back().time_ << '\n';
-         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
+         std::cout <<"beg "<< StepList->front().time_ << '\n';
+         std::cout <<"beg "<< StepList->front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList->back().time_ << '\n';
+         std::cout <<"end "<< StepList->back().numSource_+1 << '\n';
     }
 
     const double timeInHandler = handlers_[nextHandlerIndex]->handleApplication(application->getTimeOfCreation());
@@ -411,10 +413,7 @@ void FunctionalModule::totalGeneratedAppsSimulation(int numSources, int numBufer
 
 
     if (apps >= totalApps) {
-        //while (!buffer_->isEmpty())
-        //{
 
-        //}
       break;
     }
   }

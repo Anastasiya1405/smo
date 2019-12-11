@@ -7,16 +7,22 @@
 #include <list>
 #include <iterator>
 #include "step.hpp"
-#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Source.hpp"
-#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Handler.hpp"
-#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Buffer.hpp"
-#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/FunctionalModule.hpp"
-#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/RingSelection.hpp"
-#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/FreeAddition.hpp"
-#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/RingAdd.h"
-
+//#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Source.hpp"
+//#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Handler.hpp"
+//#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Buffer.hpp"
+//#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/FunctionalModule.hpp"
+//#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/RingSelection.hpp"
+//#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/FreeAddition.hpp"
+//#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/RingAdd.h"
+#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/Source.hpp"
+#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/Handler.hpp"
+#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/Buffer.hpp"
+#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/FunctionalModule.hpp"
+#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/RingSelection.hpp"
+#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/FreeAddition.hpp"
+#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/RingAdd.h"
 #include <QApplication>
-
+//std::list<StepStructure> StepList;
 RunWindow::RunWindow(QWidget *parent) :
   QDialog(parent),
   ui(new Ui::RunWindow)
@@ -162,15 +168,11 @@ void RunWindow::on_pushButton_clicked()
         std::cout << "Stats for " << i + 1 << " handler:\n";
         std::cout << "\t getEmploymentRate = " << functionalModule.data_.getEmploymentRate(i) << '\n';
       }
-      std::cout <<"55 "<< StepList.begin()->time_ << '\n';
-      std::cout <<"55 "<< StepList.front().numSource_ +1<< '\n';
-      std::cout <<"55 "<< StepList.end()->time_ << '\n';
-      std::cout <<"55 "<< StepList.back().numSource_+1 << '\n';
 
       std::list <StepStructure> :: iterator it;
-      //int i = 0;
-      for (it = StepList.begin(); it != StepList.end(); it++) {
-          std::cout <<"huynya "<< it->time_ << '\n';
+      int i = 0;
+      for (it = StepList->begin(); it != StepList->end(); it++) {
+          std::cout <<++i<< " "<< it->time_ << '\n';
        }
 
       for (size_t i = 0; i < numSources_; i++)

@@ -27,6 +27,7 @@ SOURCES += \
     load.cpp \
     main.cpp \
     mainwindow.cpp \
+    runwindow.cpp \
     stepwindow.cpp \
 
 
@@ -40,14 +41,16 @@ HEADERS += \
     ../Desktop/Polytech/SMO/headers/SelectionStrategy.hpp \
     ../Desktop/Polytech/SMO/headers/Source.hpp \
     ../Desktop/Polytech/SMO/headers/TimeBehaviour.hpp \
-    ../Desktop/Polytech/SMO/src/RingAdd.h \
+    ../Desktop/Polytech/SMO/headers/RingAdd.h \
     mainwindow.h \
+    runwindow.h \
     stepwindow.h \
     step.hpp \
 
 
 FORMS += \
     mainwindow.ui \
+    runwindow.ui \
     stepwindow.ui \
 
 
