@@ -18,8 +18,8 @@
 
 
 #include <QApplication>
-int load();
-
+//int load();
+//std::list<StepStructure> StepList;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

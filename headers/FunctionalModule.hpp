@@ -6,10 +6,12 @@
 #include <iostream>
 #include <list>
 
+#include "step.hpp"
 #include "Handler.hpp"
 #include "Buffer.hpp"
 #include "Source.hpp"
 static int count = 1;
+//std::list<StepStructure> StepList;
 
 struct sourceData {
   sourceData():
