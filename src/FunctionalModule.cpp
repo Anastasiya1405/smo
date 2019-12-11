@@ -2,8 +2,9 @@
 #include "../headers/FunctionalModule.hpp"
 #include <iostream>
 //#include <windows.h>
-#include "ringadd.h"
+#include "../headers/RingAdd.h"
 #include "step.hpp"
+#include "stepwindow.h"
 
 //static int count = 1;
 
@@ -87,7 +88,10 @@ void FunctionalModule::handleCreationOfNewApplication(const size_t &sourceGenera
                                           count,
                                           application->getSourceIndex(),
                                           data_.sourcesData[application->getSourceIndex()].generatedAppsCount)) );
-
+  std::cout <<"beg "<< StepList.front().time_ << '\n';
+  std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
+  std::cout <<"end "<< StepList.back().time_ << '\n';
+  std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
   // Добавляем заявку в буфер, если есть место
   std::cout<< "Шаг :" << count << '\n';
   count++;
@@ -112,6 +116,10 @@ void FunctionalModule::handleCreationOfNewApplication(const size_t &sourceGenera
                                             count,
                                             replacedApplication->getSourceIndex(),
                                             -1)) );
+    std::cout <<"beg "<< StepList.front().time_ << '\n';
+    std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
+    std::cout <<"end "<< StepList.back().time_ << '\n';
+    std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
     std::cout << '\n';
   }
   sources_[sourceGeneratedApplication]->postApplication();
@@ -140,6 +148,10 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
               << outputTime[nextHandlerIndex].numSource + 1 << " = "
               << outputTime[nextHandlerIndex].finishTime<< '\n';
          std::cout << '\n';
+         std::cout <<"beg "<< StepList.front().time_ << '\n';
+         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList.back().time_ << '\n';
+         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
          outputTime[nextHandlerIndex].finishTime = 0;
 
     }
@@ -158,6 +170,10 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
                                                  count,
                                                  application->getSourceIndex(),
                                                  -1)) );
+         std::cout <<"beg "<< StepList.front().time_ << '\n';
+         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList.back().time_ << '\n';
+         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
     }
     else
     {
@@ -172,6 +188,10 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
                                                  count,
                                                  application->getSourceIndex(),
                                                  -1)) );
+         std::cout <<"beg "<< StepList.front().time_ << '\n';
+         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList.back().time_ << '\n';
+         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
     }
     const double timeInHandler = handlers_[nextHandlerIndex]->handleApplication(handlers_[handlerFinishedWork]->getFinishTime());
 
@@ -198,10 +218,10 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
                                              count,
                                              application->getSourceIndex(),
                                              data_.sourcesData[application->getSourceIndex()].generatedAppsCount)) );
-     std::cout <<"beg "<< StepList.begin()->time_ << '\n';
-     std::cout <<"beg "<< StepList.begin()->numSource_ << '\n';
-     std::cout <<"end "<< StepList.end()->time_ << '\n';
-     std::cout <<"end "<< StepList.end()->numSource_ << '\n';
+     std::cout <<"beg "<< StepList.front().time_ << '\n';
+     std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
+     std::cout <<"end "<< StepList.back().time_ << '\n';
+     std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
 
     std::cout<< "Шаг :" << count << '\n';
     count++;
@@ -225,6 +245,10 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
                                                  count,
                                                  outputTime[nextHandlerIndex].numSource,
                                                  -1)) );
+         std::cout <<"beg "<< StepList.front().time_ << '\n';
+         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList.back().time_ << '\n';
+         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
          outputTime[nextHandlerIndex].finishTime = 0;
 
 
@@ -244,6 +268,10 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
                                                  count,
                                                  application->getSourceIndex(),
                                                  -1)) );
+         std::cout <<"beg "<< StepList.front().time_ << '\n';
+         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList.back().time_ << '\n';
+         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
     }
     else
     {
@@ -259,6 +287,10 @@ void FunctionalModule::handleEndOfHandlerWork(const size_t &handlerFinishedWork,
                                                  count,
                                                  application->getSourceIndex(),
                                                  -1)) );
+         std::cout <<"beg "<< StepList.front().time_ << '\n';
+         std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
+         std::cout <<"end "<< StepList.back().time_ << '\n';
+         std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
     }
 
     const double timeInHandler = handlers_[nextHandlerIndex]->handleApplication(application->getTimeOfCreation());

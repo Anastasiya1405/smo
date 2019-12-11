@@ -1,7 +1,6 @@
 #ifndef STEPWINDOW_H
 #define STEPWINDOW_H
 
-
 #include <QWidget>
 #include <QDialog>
 #include <QGraphicsScene>
@@ -31,17 +30,17 @@ private slots:
 
 private:
   Ui::StepWindow *ui;
-  int currentStep;
+     int currentStep;
      float leftTime;
      float rightTime;
 
      int scaleY = 50;
      int scaleX = 50*5;
      int dashHeight = 25;
-     double numSources_;
-     double numBufer_;
-     double numDevice_;
-     double numApplications_;
+     int numSources_;
+     int numBufer_;
+     int numDevice_;
+     int numApplications_;
 
      double parametr = 0.25;
 

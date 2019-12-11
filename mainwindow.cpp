@@ -9,11 +9,15 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    runWindow = nullptr;
+    stepWindow = nullptr;
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete runWindow;
+    delete stepWindow;
 }
 
 int MainWindow::getNumSources()
@@ -60,9 +64,13 @@ void MainWindow::on_modelling_clicked()
    lambda_ = ui->lambda->toPlainText().toDouble();
    alpha_ = ui->alpha->toPlainText().toDouble();
    beta_ = ui->beta->toPlainText().toDouble();
-//   std::cout<< getNumSources();
-   int a = load(numSources_, numBufer_, numHandler_, numApplication_, lambda_, alpha_, beta_);
-   this->close();
+   load(numSources_, numBufer_, numHandler_, numApplication_, lambda_, alpha_, beta_);
+   if (this->runWindow != nullptr)
+         delete runWindow;
+       this->runWindow = new RunWindow(this);
+       runWindow->show();
+
+   //this->close();
 }
 
 void MainWindow::on_StepByStep_clicked()

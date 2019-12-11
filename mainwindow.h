@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "stepwindow.h"
-
+#include "runwindow.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -39,6 +39,7 @@ private slots:
 public:
     Ui::MainWindow *ui;
     StepWindow *stepWindow;
+    RunWindow *runWindow;
 
 //    int numSources_;
 //    int numApplication_;
