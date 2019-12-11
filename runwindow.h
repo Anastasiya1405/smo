@@ -22,8 +22,13 @@ private slots:
 private:
   Ui::RunWindow *ui;
   int numSources_;
+  int numApplication_;
   int numBufer_;
-  int numDevice_;
+  int numHandler_;
+  double lambda_;
+  double alpha_;
+  double beta_;
+
 };
 
 #endif // RUNWINDOW_H

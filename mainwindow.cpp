@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <iostream>
 
-int load(int numSources, int numBufer, int numHandler, size_t numApplication, double lambda, double alpha, double beta);
+//int load(int numSources, int numBufer, int numHandler, size_t numApplication, double lambda, double alpha, double beta);
 //int load();
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -64,7 +64,7 @@ void MainWindow::on_modelling_clicked()
    lambda_ = ui->lambda->toPlainText().toDouble();
    alpha_ = ui->alpha->toPlainText().toDouble();
    beta_ = ui->beta->toPlainText().toDouble();
-   load(numSources_, numBufer_, numHandler_, numApplication_, lambda_, alpha_, beta_);
+   //load(numSources_, numBufer_, numHandler_, numApplication_, lambda_, alpha_, beta_);
    if (this->runWindow != nullptr)
          delete runWindow;
        this->runWindow = new RunWindow(this);
