@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <iostream>
-//std::list<StepStructure> StepList;
+
 //int load(int numSources, int numBufer, int numHandler, size_t numApplication, double lambda, double alpha, double beta);
 //int load();
 MainWindow::MainWindow(QWidget *parent)

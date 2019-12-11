@@ -27,9 +27,8 @@ public:
     size_t numSource_;
     size_t numApp_;
 };
-//static std::shared_ptr<std::list<StepStructure>> StepList;
+static std::list<StepStructure> StepList;
 //std::vector<std::shared_ptr<StepStructure>> SList;
-//std::list<StepStructure> StepLis;
-extern std::list<StepStructure> *StepList ;
+
 
 #endif // STEP_HPP

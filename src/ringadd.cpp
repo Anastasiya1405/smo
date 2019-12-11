@@ -1,10 +1,10 @@
 #include "../headers/RingAdd.h"
 #include <iostream>
-//#include "step.hpp"
-#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/FunctionalModule.hpp"
+#include "step.hpp"
+//#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/FunctionalModule.hpp"
 
-//#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/FunctionalModule.hpp"
-//std::list<StepStructure> StepList;
+#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/FunctionalModule.hpp"
+
 RingAdd::RingAdd():
   elementPointer_(0)
 {}
@@ -47,17 +47,17 @@ bool RingAdd::search(std::vector<std::shared_ptr<Application>> &applications,con
           application = applicationToAdd;
           application->bufferNumber_ = elementPointer_;
           movePointer(applications.size(), i);
-          StepList->push_back(* (new StepStructure(1, application->bufferNumber_,
+          StepList.push_back(* (new StepStructure(1, application->bufferNumber_,
                                                   applicationToAdd->getTimeOfCreation(),
                                                   count,
                                                   application->getSourceIndex(),
                                                   -1)) );
 
           std::cout << " От Источника №" << applicationToAdd->getSourceIndex() + 1 << " = " << applicationToAdd->getTimeOfCreation() << '\n';
-          std::cout <<"beg "<< StepList->front().time_ << '\n';
-          std::cout <<"beg "<< StepList->front().numSource_ +1<< '\n';
-          std::cout <<"end "<< StepList->back().time_ << '\n';
-          std::cout <<"end "<< StepList->back().numSource_+1 << '\n';
+          std::cout <<"beg "<< StepList.front().time_ << '\n';
+          std::cout <<"beg "<< StepList.front().numSource_ +1<< '\n';
+          std::cout <<"end "<< StepList.back().time_ << '\n';
+          std::cout <<"end "<< StepList.back().numSource_+1 << '\n';
           std::cout << '\n';
           return true;
         }

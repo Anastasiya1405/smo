@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <list>
-//#include "step.hpp"
+#include "step.hpp"
 
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/Source.hpp"
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/Handler.hpp"
@@ -10,7 +10,7 @@
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/FunctionalModule.hpp"
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/RingSelection.hpp"
 #include "/Users/anastasiia/Desktop/Polytech/SMO/headers/FreeAddition.hpp"
-#include "/Users/anastasiia/Desktop/Polytech/SMO/headers/RingAdd.h"
+#include "/Users/anastasiia/Desktop/Polytech/SMO/src/RingAdd.h"
 
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Source.hpp"
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/headers/Handler.hpp"
@@ -21,7 +21,7 @@
 //#include "/Users/georgy/University/ArchitectureOfSoftwareSystems/smo/src/RingAdd.h"
 
 #include <QApplication>
-//extern std::list<StepStructure> StepList;
+
 int load(int numSources, int numBufer, int numHandler, size_t numApplication, double lambda, double alpha, double beta)
 {
     std::cout << "numSources = " << numSources << '\n'
@@ -85,14 +85,14 @@ int load(int numSources, int numBufer, int numHandler, size_t numApplication, do
         std::cout << "Stats for " << i + 1 << " handler:\n";
         std::cout << "\t getEmploymentRate = " << functionalModule.data_.getEmploymentRate(i) << '\n';
       }
-//      std::cout <<"555 "<< StepList->front().time_ << '\n';
-//      std::cout <<"555 "<< StepList->front().numSource_ << '\n';
-//      std::cout <<"555 "<< StepList->back().time_ << '\n';
-//      std::cout <<"555 "<< StepList->back().numSource_ << '\n';
-//      std::list <StepStructure> :: iterator it;
-//      int i = 0;
-//      for (it = StepList->begin(); it != StepList->end(); it++) {
-//          std::cout <<++i <<" "<< it->time_ << '\n';
-//       }
+      std::cout <<"555 "<< StepList.begin()->time_ << '\n';
+      std::cout <<"555 "<< StepList.begin()->numSource_ << '\n';
+      std::cout <<"555 "<< StepList.end()->time_ << '\n';
+      std::cout <<"555 "<< StepList.end()->numSource_ << '\n';
+      std::list <StepStructure> :: iterator it;
+      //int i = 0;
+      for (it = StepList.begin(); it != StepList.end(); it++) {
+          std::cout <<"huynya "<< it->time_ << '\n';
+       }
       return 0;
 }
